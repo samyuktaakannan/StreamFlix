@@ -1,0 +1,191 @@
+-- Database: project
+
+-- DROP DATABASE IF EXISTS project;
+
+CREATE DATABASE project
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'English_India.1252'
+    LC_CTYPE = 'English_India.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+	
+	create table customer
+	(
+		phone varchar(20) not null,
+		name1 varchar(50) not null,
+		custID int not null primary key,
+		dob date not null
+	);
+	create table subscriptions
+	(
+		subsID int not null primary key,
+		plan varchar(20) not null,
+		vquality varchar(10) not null,
+		resolution varchar(10) not null,
+		numdevices int not null
+	);
+	create table payment
+	(
+		custID int not null,
+		subsID int not null,
+		price float not null,
+		paymethod varchar(20) not null,
+		lastdate date not null,
+		foreign key (subsID) references subscriptions(subsID),
+		foreign key (custID) references customer(custID)
+	);
+	
+	
+	create table tvshows
+	(
+		tvname varchar(50) not null primary key,
+		tvryear int not null,
+		actors varchar(100) not null,
+		director varchar(50) not null,
+		seasons int not null,
+		agerating varchar(15) not null,
+		imdb float not null,
+		languages varchar(20) not null,
+		description varchar(500),
+		genres varchar(20) not null
+	);
+	
+	create table movies
+	(
+		movname varchar(50) not null primary key,
+		movryear int not null,
+		actors varchar(100) not null,
+		director varchar(30) not null,
+		duration varchar(10) not null,
+		genres varchar(20) not null,
+		agerating varchar(15) not null,
+		imdb float not null,
+		description varchar(500)not null,
+		languages varchar(20) not null
+	);
+	
+	
+	insert into subscriptions
+	values 
+	 (1,'Mobile','Good','480p',2),
+	 (2,'Basic','Good','480p',4),
+	 (3,'Standard','Better','1080p',4),
+	 (4,'Premium','Best','4K+HDR',4);
+	
+	 
+	 insert into movies
+	 values
+	 	('Mission:impossible fallout',2018.0,'Tom cruise, Henry Cavill','Christopher McQuarrie','2h 26m','Action','U/A 13+',7.7,'Ethan Hunt and his IMF team, along with some familiar allies, race against time after a mission gone wrong.','English'),
+	 	('Gangs of wasseypur',2012.0,'Manoj Bajpayee, Nawazuddin Siddiqui','Anurag Kashyap','2h 40m','Action','A',8.2,'A clash between Sultan and Shahid Khan leads to the expulsion of Khan from Wasseypur, and ignites a deadly blood feud spanning three generations.','Hindi'),
+		('Thunivu',2023.0,'Ajith Kumar, Manju Warrier','H.Vinoth','2h 22m','Action','U/A 16+',6.2,'A mysterious mastermind - Daredevil and his team forms a plan and commits bank heist to find the corporate looted people''s money.','Tamil'),
+		('Comrade in America',2017.0,'Dulquer Salmaan,Karthika Muraleedharan','Amal Neerad','2h 9m','Action','U/A 16+',6.4,'A young man in Kerala has two weeks to stop the woman he loves from a fixed marriage in the U.S., but he doesn''t have the papers to get there.','Malaylam'),
+		('Notting hill',1999.0,'Julia Roberts, Hugh Grant','Roger Mitchell','2h 3m','Romance','U/A 13+',7.2,'The life of a simple bookshop owner changes when he meets the most famous film star in the world.','English'),
+		('O Kadhal Kanmani',2015.0,'Dulquer Salman, Nitya Menon','Mani Ratnam','2h 13m','Romance','U/A 13+',7.4,'Two young lovers are compatible in every way - they even agree that marriage is futile. However, their emotions are not so easily managed, especially when they witness the unconditional love of the older couple with whom they live.','Tamil'),
+	 	('Jab we met',2007.0,'Shahid Kapoor, Kareena Kapoor','Imitiaz Ali','2h 23m','Romance','U/A 13+',7.9,'A depressed wealthy businessman finds his life changing after he meets a spunky and care-free young woman.','Hindi'),
+		('Maniyarayile Ashokan',2020.0,'Jacob Gregory,Anupama Parameswaran','Shamzu Zayba','1h 50m','Romance','U/A 13+',4.7,'When his unlucky horoscope doesn''t bode well for his future wife, an earnest bachelor goes to surprising lengths to get the family he''s always wanted.','Malayalam'),
+		('3 idiots',2009.0,'Aamir Khan, Kareena Kapoor','Rajkumar Hirani','2h 43m','Comedy','U/A 16+',8.4,'Two friends are searching for their long lost companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots".','Hindi'),
+		('Minnal Murali',2021.0,'Tovino Thomas, Guru Somasundaram','Basil Joseph','2h 39m','Comedy','U/A 13+',7.8,'An unusual event creates a lightning which in turns gives superhuman abilies to an ambitious tailor ,whose responsibility is now to protect his home village from the evil plans of the antagonist.','Malayalam'),
+		('Avvai Shanmugi',1996.0,'Kamal Haasan; Meena','KS Ravikumar','2h 41m','Comedy','U/A 13+',7.9,'A man disguises himself as a nanny to be with his daughter after his divorce.','Tamil'),
+		('Hangover',2009.0,'Bradley Cooper, Ed Helms','Todd Phillips','1h 29m','Comedy','A',7.7,'Three buddies wake up from a bachelor party in Las Vegas, with no memory of the previous night and the bachelor missing. They make their way around the city in order to find their friend before his wedding.','English'),
+		('Get Out',2017.0,'Daniel Kaluuya, Allison Williams','Jordan Peele','1h 44m','Horror','A',7.7,'A young African-American visits his white girlfriend''s parents for the weekend, where his simmering uneasiness about their reception of him eventually reaches a boiling point.','English'),
+		('Stree',2018.0,'Rajkummar Rao, Shraddha Kapoor','Amar Kaushik','2h 6m','Horror','U/A 13+',7.5,'In the small town of Chanderi, the menfolk live in fear of an evil spirit named "Stree" who abducts men in the night. Based on the urban legend of "Nale Ba" that went viral in Karnataka in the 1990s.','Hindi'),
+		('Kaatteri',2022.0,'Aathmika, Sonam Bajwa','Deekay','2h 1m','Horror','U/A 13+',4.3,'To escape the wrath of the gangster whom they work for, a gang of treasure-seeking, bumbling criminals go to a hillside village, which, they don''t realise is a ghost town, literally!','Tamil'),
+		('Irul',2021.0,'Fahadh Faasil,Soubin Shahir','Naseef Yusuf Izuddin','1h 31m','Horror','U/A 16+',5.8,'When a car breakdown forces a couple to seek shelter in a nearby home, conversations with the stranger inside soon suggest there''s a killer among them.','Malayalam'),
+		('Shutter Island',2010.0,'Leonardo DiCaprio, Mark Ruffalo','Martin Scorsese','2hr 18min','Thriller','U/A 16+',8.2,'In 1954, a U.S. Marshal investigates the disappearance of a murderer who escaped from a hospital for the criminally insane.','English'),
+		('Andhadhun',2018.0,'Ayushmann Khurrana, Radhika Apte','Sriram Raghavan','2hr 17min','Thriller','U/A 16+',8.2,'A series of mysterious events change the life of a blind pianist, who must now report a crime that he should technically know nothing of.','Hindi'),
+		('Raangi',2022.0,'Trisha Krishnan','M. Saravanan','2hr 1min','Thriller','U/A 16+',4.8,'An online channel reporter, finds a fake Facebook account of her niece. She encounters a boy Aalim from Libya. The FBI on the other hand wants to bring Aalim under their custody using Thaiyal Nayagi and her niece as bait.','Tamil'),
+		('CBI 5: The Brain',2022.0,'Mammootty, Jagathy Sreekumar','K Madhu','2hr 42min','Thriller','U/A 13+',5.6,'A series of murders is happening in the city. With the police failing to solve the case, a team of CBI Officers under CBI officer Sethurama Iyer take up the investigation to resolve the mystery.','Malayalam'),
+		('A Silent Voice',2016.0,'Miyu Irino, Aoi Yuki','Naoko Yamada','2hr 9min','Anime','U/A 16+',8.1,'A young man is ostracized by his classmates after he bullies a deaf girl to the point where she moves away. Years later, he sets off on a path for redemption.','English'),
+		('Spirited Away',2001.0,'Rumi Hiiragi, Mari Natsuki','Hayao Miyazaki','2hr 5min','Anime','U/A 13+',8.6,'During her family''s move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.','English'),
+		('Whisper of the Heart',1995.0,'Yoko Honna, Takashi Tachibana','Yoshifumi Kondo','1hr 51min','Anime','U/A 7+',7.9,'A love story between a girl who loves reading books, and a boy who has previously checked out all of the library books she chooses.','English'),
+		('Drifting Home',2022.0,'Mutsumi Tamura, Daiki Yamashita','Hiroyasu Ishida','2hr','Anime','U/A 13+',6.2,'Follows two childhood friends who drift into a mysterious sea with an entire housing complex.','English'),
+		('The Adam Project',2022.0,'Ryan Reynolds, Jennifer Garner','Shawn Levy','1hr 46min','Sci-fi','U/A 13+',6.7,'After accidentally crash-landing in 2022, time-traveling fighter pilot Adam Reed teams up with his 12-year-old self for a mission to save the future','English'),
+		('Interstellar',2014.0,'Mathew McConaughey, Anne Hathaway','Christopher Nolan','2hr 49min','Sci-fi','U/A 13+',8.6,'A team of explorers travel through a wormhole in space in an attempt to ensure humanity''s survival.','English'),
+		('Passengers',2016.0,'Jennifer Lawrence, Chris Pratt','Morten Tyldum','1hr 56min','Sci-fi','U/A 13+',7.0,'A malfunction in a sleeping pod on a spacecraft traveling to a distant colony planet wakes one passenger 90 years early.','English'),
+		('Don''t Look Up',2021.0,'Leonardo DiCaprio, Jennifer Lawrence','Adam McKay','2hr 23min','Sci-fi','A',7.2,'Two low-level astronomers must go on a giant media tour to warn humankind of an approaching comet that will destroy planet Earth.','English');
+
+	
+	
+	insert into tvshows
+	values
+		('Shooter',2016.0,'Ryan Phillippe, Cynthia Addai-Robinson','John Halvin',3.0,'U/A 16+',7.5,'English','A conspiracy action that follows the journey of Bob Lee Swagger, a highly-decorated veteran who is coerced back into action to prevent a plot to kill the President.','Action'),
+		('Black Mirror',2011.0,'Jesse Plemons, Christin Milioti, Jimmi Simpson','Charlie Brooker',5.0,'A',8.8,'English','An anthology series exploring a twisted, high-tech multiverse where humanity''s greatest innovations and darkest instincts collide.','Action'),
+		('Hit & Run',2021.0,'Lior raz, Kaelen Ohm, Sanaa Lathan','Avi Issacharoff, Lior Raz, Dawn Prestwich',1.0,'A',7.0,'English','A happily-married man''s life is turned upside-down when his wife is killed in a mysterious hit-and-run accident in Tel Aviv.','Action'),
+		('Jupiter''s Legacy',2021.0,'Josh Duhamel, Ben Daniels, Leslie Bibb','Mark Millar, Frank Quitely',1.0,'A',6.7,'English','The first generation of superheroes has kept the world safe for nearly a century. Now their children must live up to their legacy in an epic drama that spans decades and navigates the dynamics of family, power and loyalty.','Action'),
+		('Money Heist',2017.0,'Ursula Corbero, Alvaro Morte, Itzair Ituno','Alex Pina',5.0,'A',8.2,'English','An unusual group of robbers attempt to carry out the most perfect robbery in Spanish history - stealing 2.4 billion euros from the Royal Mint of Spain.','Action'),
+		('Mismatched',2020.0,'Prajakta Koli, Rohit Saraf, Vihaan Samat','Akarsh Khurana',2.0,'A',5.8,'Hindi','The movie will be a romantic film featuring two people who are not right for each other. The story is about Prajakta''s character who is a tech wizard and the guy who is interested in her.','Romance'),
+		('Its okay to not be okay',2020.0,'Kim Soo-hyun, Seo Yea-ji,Oh Jung-se','Park Shin-woo',1.0,'U/A 13+',8.6,'English','An extraordinary road to emotional healing opens up for an selfish antisocial children''s book writer and a selfless psych ward caretaker when they cross paths.','Romance'),
+		('Heartstopper',2022.0,'Kit Connor, Joe Locke, William Gao','Alice Oseman',1.0,'U/A 13+',8.7,'English','Teens Charlie and Nick discover their unlikely friendship might be something more as they navigate school and young love in this coming-of-age series.','Romance'),
+		('Feels Like Ishq',2021.0,'Radhika Madan, Amol Parashar, Rohit Saraf','Saurabh George Swamy',1.0,'U/A 16+',6.5,'Hindi','Short films follow young adults as they navigate the gamut of emotions that come with finding romantic connection in unexpected places.','Romance'),
+		('Ginny & Georgia',2021.0,'Brainne Howey, Antonia Gentry, Diesel La Torraca','Sarah Lampert',2.0,'A',7.5,'English','Ginny Miller, an angsty fifteen-year-old, often feels more mature than her thirty-year-old mother, the irresistible and dynamic Georgia Miller.','Romance'),
+		('Brooklyn Nine - Nine',2013.0,'Andy Samberg, Andre Braugher, Stephanie Beatriz','Daniel J. Goor, Michel Schur',8.0,'U/A 16+',8.4,'English','Comedy series following the exploits of Det. Jake Peralta and his diverse, lovable colleagues as they police the NYPD''s 99th Precinct.','Comedy'),
+		('The Big Bang Theory',2007.0,'Johnny Galecki, Jim Parsons, Kaley Cuoco','Mark Cendrowski',12.0,'U/A 16+',8.2,'English','A woman who moves into an apartment across the hall from two brilliant but socially awkward physicists shows them how little they know about life outside of the laboratory.','Comedy'),
+		('The Office',2005.0,'Steve Carell, John Krasinski, Jenna Fischer','Greg Danuels, Ricky Gervais, Stephen Merchant',9.0,'U/A 13+',9.0,'English','A mockumentary on a group of typical office workers, where the workday consists of ego clashes, inappropriate behavior, and tedium.','Comedy'),
+		('Friends',1994.0,'Jennifer Aniston,Courtney Cox, Lisa Kudrow,  Mathew Perry, David Schwimmer, Matt LeBlanc','David Crane, Marta Kauffman',10.0,'U/A 13+',8.9,'English','Follows the personal and professional lives of six twenty to thirty year-old friends living in the Manhattan borough of New York City.','Comedy'),
+		('Guillermo del Toro''s Cabinet of Curiosities',2022.0,'Tim Blake Nelson, Sebastian Roche, Elpidia Carrillo','Guillermo del Toro',1.0,'A',7.0,'English','Bizarre nightmares unfold in eight tales of terror in a visually stunning, spine-tingling horror collection curated by Guillermo del Toro.','Horror'),
+		('The Haunting of Hill House',2018.0,'Michiel Huisman, Carla Gugino, Timothy Hutton','Mike Flanagan',1.0,'A',8.6,'English','Flashing between past and present, a fractured family confronts haunting memories of their old home and the terrifying events that drove them from it.','Horror'),
+		('Haunted',2018.0,'Vanda Chaloupkova, Janek Gregor, Oskar Hes','Brett-Patrick Jenkins',1.0,'A',4.7,'English','A chilling glimpse into the first-person accounts from people who have witnessed horrifying, peculiar, extraordinary supernatural events and other unexplained phenomena that continue to haunt them.','Horror'),
+		('Paranormal',2020.0,'Ahmed Amin, Razane Jammal, Ayah Samaha','Amr Salama',1.0,'U/A 16+',8.0,'Hindi','Set in the 1960s, the series, packed with mystery and suspense, depicts the adventures of Doctor Refaat Ismail, a single hematologist who finds himself faced with a series of supernatural events.','Horror'),
+		('Wednesday',2022.0,'Jenna Ortega, Gwendoline Christie, Riki Lindhome','Alfred Gough, Miles Millar',1.0,'U/A 13+',8.2,'English','Follows Wednesday Addams'' years as a student, when she attempts to master her emerging psychic ability, thwart a killing spree, and solve the mystery that embroiled her parents.','Horror'),
+		('Mindhunter',2017.0,'Jonathan Groff, Holt McCallany, Anna Torv','Joe Penhall',2.0,'A',8.6,'English','Set in the late 1970s, two FBI agents are tasked with interviewing serial killers to solve open cases.','Thriller'),
+		('Squid Game',2021.0,'Lee Jung-jae, Park Hae-soo, Wi Ha-jun','Hwang Dong-hyuk',1.0,'A',8.0,'English','Hundreds of cash-strapped players accept a strange invitation to compete in children''s games. Inside, a tempting prize awaits with deadly high stakes. A survival game that has a whopping 45.6 billion-won prize at stake.','Thriller'),
+		('The Stranger',2020.0,'Richard Armitage, Siobhan Finneran, Jennifer Saunders','Harlan Coben',1.0,'U/A 16+',7.3,'English','Follows the lives of suburban families whose secrets and lies are made public by the appearance of a stranger.','Thriller'),
+		('You',2018.0,'Penn Badgley, Victoria Pedretti, Elizabeth Lail','Greg Berlanti, Sera Gamble',4.0,'A',7.7,'English','A dangerously charming, intensely obsessive young man goes to extreme measures to insert himself into the lives of those he is transfixed by.','Thriller'),
+		('Devilman Crybaby',2018.0,'Koki Uchiyama, Ayumu Murase, Megumi Han','Masaaki Yuasa',10.0,'A',7.6,'English','With demons reawakened and humanity in turmoil, a sensitive demon-boy is led into a brutal, degenerate war against evil by his mysterious friend, Ryo.','Anime'),
+		('Demon  Slayer: Kimetsu no Yaiba',2019.0,'Natsuki Hanae, Akari Kito, Hiro Shimono','Koyoharu Gotouge',3.0,'U/A 16+',8.7,'English','A family is attacked by demons and only two members survive - Tanjiro and his sister Nezuko, who is turning into a demon slowly. Tanjiro sets out to become a demon slayer to avenge his family and cure his sister.','Anime'),
+		('Blood of Zeus',2020.0,'Derek Philips, Jason O''Mara, Claudia Christian','Charles Parlapanides, Vlas Parlapanides',1.0,'A',7.5,'English','A commoner living in ancient Greece, Heron discovers his true heritage as a son of Zeus, and his purpose: to save the world from a demonic army.','Anime'),
+		('Blue Period',2021.0,'Hiromonu Mineta, Yumiri Hanamori, Daiki Yamashita','Tsubasa Yamaguchi',1.0,'U/A 13+',7.7,'English','Bored with life, popular high schooler Yatora Yaguchi jumps into the beautiful yet unrelenting world of art after finding inspiration in a painting.','Anime'),
+		('Stranger Things',2016.0,'Winona Ryder, David Harbour, Millie Bobby Brown','The Duffer Brothers',4.0,'U/A 16+',8.7,'English','When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces in order to get him back.','Sci-Fi'),
+		('Manifest',2018.0,'Melissa Roxburgh, Josh Dallas, J.R. Ramirez','Jeff Rake',4.0,'U/A 16+',7.1,'English','A commercial airliner suddenly reappears after being missing for five years. As those aboard reintegrate into society, they experience guiding voices and visions of events yet to occur, and soon a deeper mystery unfolds.','Sci-Fi'),
+		('The 100',2014.0,'Eliza Taylor, Paige Turco, Bob Morley','Jason Rothenberg',7.0,'A',7.6,'English','Set 97 years after a nuclear war destroyed civilization, when a spaceship housing humanity''s lone survivors sends 100 juvenile delinquents back to Earth, hoping to repopulate the planet.','Sci-Fi'),
+		('Lost in Space',2018.0,'Molly Parker, Toby Stephens, Maxwell Jenkins','Stephen Hopkins',3.0,'U/A 7+',7.3,'English','After crash-landing on an alien planet, the Robinson family fight against all odds to survive and escape, but they''re surrounded by hidden dangers.','Sci-Fi');
+
+		insert into customer 
+		values
+		('652-885-2745','Ernest Barnes',5008804,'1996-04-21'),
+		('364-656-8427','Andrea Baker',5008805,'1975-09-11'),
+		('713-226-5883','Rebecca Parker',5008806,'1966-02-07'),
+		('190-271-6743','Laura Murray',5008808,'1967-02-14'),
+		('420-332-5209','Linda Hines',5008809,'1970-03-23'),
+		('286-669-4333','Jasmine Fletcher',5008810,'1970-07-14'),
+		('341-726-5787','Dylan Rangel',5008811,'1966-07-14'),
+		('316-648-6176','William Velez',5008812,'1969-06-27'),
+		('833-887-7898','Steven Murphy',5008813,'1962-04-29'),
+		('804-383-4080','Michael Moore',5008814,'1966-04-21'),
+		('211-071-2173','Priscilla Collins',5008815,'1970-04-21'),
+		('435-075-8409','Laurie Smith',5112956,'1971-04-21'),
+		('790-746-7471','Casey Thomas',6153651,'1972-04-21'),
+		('649-384-5387','Rachel Friedman',5008819,'1986-06-10'),
+		('331-430-8824','Edward Torres',5008820,'1997-06-17'),
+		('573-306-9938','Samuel Zavala',5008821,'1991-04-21'),
+		('466-424-2102','Dr. Victor Martin',5008822,'1990-09-21'),
+		('896-642-1049','Sara Lee',5008823,'1986-04-21'),
+		('952-496-4398','Curtis Rodriguez',5008824,'1989-03-21'),
+		('382-465-6552','Stephanie Schmidt',5008825,'1990-03-04'),
+		('784-675-4921','John Matthews',5008826,'1990-09-07');
+		
+		insert into payment values 
+		(5008804,1,149,'Credit Card','2022-01-21'),
+		(5008805,2,199,'Debit Card','2022-02-21'),
+		(5008806,3,499,'Digital Wallet','2022-05-31'),
+		(5008808,4,649,'UPI','2022-03-09'),
+		(5008809,2,199,'UPI','2022-04-08'),
+		(5008810,3,499,'Credit Card','2022-06-19'),
+		(5008811,1,149,'Debit Card','2022-08-07'),
+		(5008812,4,649,'Debit Card','2022-07-09'),
+		(5008813,3,499,'Debit Card','2022-09-10'),
+		(5008814,4,649,'Debit Card','2022-11-11'),
+		(5008815,2,199,'Credit Card','2022-12-24'),
+		(5112956,1,149,'Digital Wallet','2022-04-13'),
+		(6153651,3,499,'Digital Wallet','2022-08-08'),
+		(5008819,1,149,'UPI','2022-05-06'),
+		(5008820,1,149,'Digital Wallet','2022-08-19'),
+		(5008821,2,199,'Credit Card','2022-03-03'),
+		(5008822,4,649,'Debit Card','2022-05-06'),
+		(5008823,4,649,'UPI','2022-07-17'),
+		(5008824,3,499,'Debit Card','2022-12-15'),
+		(5008825,1,149,'Credit Card','2022-11-23'),
+		(5008826,3,499,'Credit Card','2022-05-05');
